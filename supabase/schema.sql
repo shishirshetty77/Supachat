@@ -70,7 +70,7 @@ CREATE TABLE IF NOT EXISTS public.typing_indicators (
 );
 
 -- Add foreign key constraint for last_message_id in chats table
-ALTER TABLE public.chats ADD CONSTRAINT fk_last_message 
+ALTER TABLE public.chats ADD CONSTRAINT fk_last_message
     FOREIGN KEY (last_message_id) REFERENCES public.messages(id) ON DELETE SET NULL;
 
 -- Create indexes for better performance
@@ -100,7 +100,7 @@ CREATE POLICY "Users can update own profile" ON public.users
 CREATE POLICY "Users can view chats they are members of" ON public.chats
     FOR SELECT USING (
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = id AND user_id = auth.uid()
         )
     );
@@ -111,7 +111,7 @@ CREATE POLICY "Users can create chats" ON public.chats
 CREATE POLICY "Chat members can update chat details" ON public.chats
     FOR UPDATE USING (
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = id AND user_id = auth.uid()
         )
     );
@@ -128,7 +128,7 @@ CREATE POLICY "Users can view chat members for their chats" ON public.chat_membe
 CREATE POLICY "Users can add members to chats" ON public.chat_members
     FOR INSERT WITH CHECK (
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = chat_members.chat_id AND user_id = auth.uid()
         ) OR auth.uid() = user_id
     );
@@ -137,7 +137,7 @@ CREATE POLICY "Users can add members to chats" ON public.chat_members
 CREATE POLICY "Users can view messages in their chats" ON public.messages
     FOR SELECT USING (
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = messages.chat_id AND user_id = auth.uid()
         )
     );
@@ -146,7 +146,7 @@ CREATE POLICY "Users can send messages to their chats" ON public.messages
     FOR INSERT WITH CHECK (
         auth.uid() = sender_id AND
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = messages.chat_id AND user_id = auth.uid()
         )
     );
@@ -171,7 +171,7 @@ CREATE POLICY "Users can mark messages as read" ON public.message_reads
 CREATE POLICY "Users can view typing indicators for their chats" ON public.typing_indicators
     FOR SELECT USING (
         EXISTS (
-            SELECT 1 FROM public.chat_members 
+            SELECT 1 FROM public.chat_members
             WHERE chat_id = typing_indicators.chat_id AND user_id = auth.uid()
         )
     );
@@ -204,7 +204,7 @@ CREATE TRIGGER on_auth_user_created
 CREATE OR REPLACE FUNCTION public.update_user_last_active()
 RETURNS TRIGGER AS $$
 BEGIN
-    UPDATE public.users 
+    UPDATE public.users
     SET last_active = NOW(), is_online = true
     WHERE id = auth.uid();
     RETURN NULL;
@@ -215,7 +215,7 @@ $$ LANGUAGE plpgsql SECURITY DEFINER;
 CREATE OR REPLACE FUNCTION public.update_chat_last_message()
 RETURNS TRIGGER AS $$
 BEGIN
-    UPDATE public.chats 
+    UPDATE public.chats
     SET last_message_id = NEW.id, updated_at = NOW()
     WHERE id = NEW.chat_id;
     RETURN NEW;
@@ -231,7 +231,7 @@ CREATE TRIGGER on_new_message
 CREATE OR REPLACE FUNCTION public.cleanup_typing_indicators()
 RETURNS void AS $$
 BEGIN
-    DELETE FROM public.typing_indicators 
+    DELETE FROM public.typing_indicators
     WHERE created_at < NOW() - INTERVAL '10 seconds';
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -257,7 +257,7 @@ RETURNS TABLE (
 ) AS $$
 BEGIN
     RETURN QUERY
-    SELECT 
+    SELECT
         c.id as chat_id,
         c.name as chat_name,
         c.description as chat_description,
@@ -278,7 +278,7 @@ BEGIN
     LEFT JOIN public.messages lm ON c.last_message_id = lm.id
     LEFT JOIN public.users sender ON lm.sender_id = sender.id
     LEFT JOIN (
-        SELECT 
+        SELECT
             m.chat_id,
             COUNT(*) as count
         FROM public.messages m
