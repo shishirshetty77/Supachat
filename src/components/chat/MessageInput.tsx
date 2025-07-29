@@ -176,7 +176,6 @@ export function MessageInput() {
             <EmojiPicker
               onEmojiClick={handleEmojiClick}
               autoFocusSearch={false}
-              theme="auto"
             />
           </motion.div>
         )}
