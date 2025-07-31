@@ -16,8 +16,11 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
 import { useChat } from '@/contexts/ChatContext';
-import { Chat } from '@/types';
+import { Chat, User } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
+import { supabase } from '@/lib/supabase/client';
+import { createOrFindChat } from '@/utils/chatHelpers';
+import { UserSelector } from './UserSelector';
 import { 
   Search, 
   MessageCircle, 
@@ -26,7 +29,9 @@ import {
   MoreVertical,
   User as UserIcon,
   Moon,
-  Sun
+  Sun,
+  Users,
+  Plus
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -139,6 +144,9 @@ export function ChatSidebar() {
           />
         </div>
       </div>
+
+      {/* Start New Chat Button */}
+      <UserSelector />
 
       {/* Chat List */}
       <ScrollArea className="flex-1">
