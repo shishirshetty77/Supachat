@@ -4,10 +4,11 @@ import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { supabase } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
+import { User } from '@/types';
 
 export default function DebugUsers() {
   const { user: currentUser } = useAuth();
-  const [users, setUsers] = useState<any[]>([]);
+  const [users, setUsers] = useState<User[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,8 +30,9 @@ export default function DebugUsers() {
         console.log('All users in database:', allUsers);
         setUsers(allUsers || []);
 
-      } catch (err: any) {
-        setError(`Unexpected error: ${err.message}`);
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Unknown error';
+        setError(`Unexpected error: ${errorMessage}`);
         console.error('Error:', err);
       } finally {
         setLoading(false);

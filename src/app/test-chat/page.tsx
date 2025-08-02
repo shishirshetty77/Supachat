@@ -89,9 +89,10 @@ Chats found: ${chatsData?.length || 0}
 Members found: ${membersData?.length || 0}
 My chats: ${myChats?.length || 0}`);
 
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error('Database test failed:', error);
-      setResult(`Error: ${error.message}`);
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      setResult(`Error: ${errorMessage}`);
     } finally {
       setLoading(false);
     }
@@ -154,8 +155,9 @@ My chats: ${myChats?.length || 0}`);
 
       setResult(`All tests passed! Created test chat: ${newChat.id}`);
       
-    } catch (error: any) {
-      setResult(`Unexpected error: ${error.message}`);
+    } catch (error: unknown) {
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+      setResult(`Unexpected error: ${errorMessage}`);
     } finally {
       setLoading(false);
     }
