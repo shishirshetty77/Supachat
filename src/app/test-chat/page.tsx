@@ -5,13 +5,10 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useAuth } from '@/contexts/AuthContext';
-import { useChatContext } from '@/contexts/ChatContext';
-import { createOrFindChat } from '@/utils/chatHelpers';
 import { supabase } from '@/lib/supabase/client';
 
 export default function TestChat() {
   const { user: currentUser } = useAuth();
-  const { setActiveChat } = useChat();
   const [otherUserId, setOtherUserId] = useState('');
   const [otherUsername, setOtherUsername] = useState('');
   const [loading, setLoading] = useState(false);

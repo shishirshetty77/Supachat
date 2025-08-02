@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { Badge } from '@/components/ui/badge';
 import { useChat } from '@/contexts/ChatContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageBubble } from './MessageBubble';
@@ -20,7 +19,6 @@ import {
   Search,
   Info
 } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export function ChatWindow() {
   const { user } = useAuth();

@@ -1,12 +1,12 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
-import { Badge } from '@/components/ui/badge';
 import { Message } from '@/types';
 import { useAuth } from '@/contexts/AuthContext';
-import { formatDistanceToNow, format } from 'date-fns';
-import { Check, CheckCheck, User as UserIcon, File, Image as ImageIcon } from 'lucide-react';
+import { format } from 'date-fns';
+import { Check, CheckCheck, User as UserIcon, File } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface MessageBubbleProps {
@@ -49,9 +49,11 @@ export function MessageBubble({
       case 'image':
         return (
           <div className="relative">
-            <img 
-              src={message.file_url} 
+            <Image 
+              src={message.file_url || ''} 
               alt="Shared image"
+              width={300}
+              height={200}
               className="rounded-lg max-w-xs max-h-64 object-cover"
             />
             {message.content && (
