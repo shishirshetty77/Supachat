@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase/client';
 
 export default function TestSupabase() {
@@ -54,7 +55,7 @@ export default function TestSupabase() {
         )}
         
         <div>
-          <a href="/" className="text-blue-600 underline">← Back to main app</a>
+          <Link href="/" className="text-blue-600 underline">← Back to main app</Link>
         </div>
       </div>
     </div>

@@ -1,12 +1,13 @@
 'use client';
 
 import { useState } from 'react';
-import { supabase } from '@/lib/supabase/client';
-import { useAuth } from '@/contexts/AuthContext';
-import { useChat } from '@/contexts/ChatContext';
-import { createOrFindChat } from '@/utils/chatHelpers';
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { useAuth } from '@/contexts/AuthContext';
+import { useChatContext } from '@/contexts/ChatContext';
+import { createOrFindChat } from '@/utils/chatHelpers';
+import { supabase } from '@/lib/supabase/client';
 
 export default function TestChat() {
   const { user: currentUser } = useAuth();
@@ -168,7 +169,7 @@ My chats: ${myChats?.length || 0}`);
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">Test Chat Creation</h1>
         <p>Please log in first.</p>
-        <a href="/" className="text-blue-600 underline">← Back to main app</a>
+        <Link href="/" className="text-blue-600 underline">← Back to main app</Link>
       </div>
     );
   }
@@ -221,8 +222,8 @@ My chats: ${myChats?.length || 0}`);
         )}
 
         <div className="space-y-2">
-          <a href="/debug-users" className="text-blue-600 underline block">→ Go to Debug Users (to get user IDs)</a>
-          <a href="/" className="text-blue-600 underline block">← Back to main app</a>
+          <Link href="/debug-users" className="text-blue-600 underline block">→ Go to Debug Users (to get user IDs)</Link>
+          <Link href="/" className="text-blue-600 underline block">← Back to main app</Link>
         </div>
       </div>
     </div>

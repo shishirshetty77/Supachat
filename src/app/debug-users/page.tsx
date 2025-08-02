@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+import Link from 'next/link';
 import { supabase } from '@/lib/supabase/client';
 import { useAuth } from '@/contexts/AuthContext';
 
@@ -46,7 +47,7 @@ export default function DebugUsers() {
       <div className="p-8">
         <h1 className="text-2xl font-bold mb-4">Debug Users</h1>
         <p>Please log in first.</p>
-        <a href="/" className="text-blue-600 underline">← Back to main app</a>
+        <Link href="/" className="text-blue-600 underline">← Back to main app</Link>
       </div>
     );
   }
@@ -112,7 +113,7 @@ export default function DebugUsers() {
         </div>
 
         <div>
-          <a href="/" className="text-blue-600 underline">← Back to main app</a>
+          <Link href="/" className="text-blue-600 underline">← Back to main app</Link>
         </div>
       </div>
     </div>
