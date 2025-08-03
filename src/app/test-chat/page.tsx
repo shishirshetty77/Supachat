@@ -106,7 +106,7 @@ My chats: ${myChats?.length || 0}`);
       setResult('Testing database queries...');
 
       // Test 1: Can we read from chats table?
-      const { data: chats, error: chatsError } = await supabase
+      const { error: chatsError } = await supabase
         .from('chats')
         .select('*')
         .limit(5);
@@ -117,7 +117,7 @@ My chats: ${myChats?.length || 0}`);
       }
 
       // Test 2: Can we read from chat_members table?
-      const { data: members, error: membersError } = await supabase
+      const { error: membersError } = await supabase
         .from('chat_members')
         .select('*')
         .limit(5);

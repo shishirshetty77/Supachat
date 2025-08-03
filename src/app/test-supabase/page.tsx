@@ -12,7 +12,7 @@ export default function TestSupabase() {
     const testConnection = async () => {
       try {
         // Test if we can connect to Supabase
-        const { data, error } = await supabase.from('users').select('count').limit(1);
+        const { error } = await supabase.from('users').select('count').limit(1);
         
         if (error) {
           setError(error.message);
