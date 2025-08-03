@@ -16,10 +16,8 @@ import {
 } from '@/components/ui/dropdown-menu';
 import { useAuth } from '@/contexts/AuthContext';
 import { useChat } from '@/contexts/ChatContext';
-import { Chat, User } from '@/types';
+import { Chat } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
-import { supabase } from '@/lib/supabase/client';
-import { createOrFindChat } from '@/utils/chatHelpers';
 import { UserSelector } from './UserSelector';
 import { 
   Search, 
@@ -29,9 +27,7 @@ import {
   MoreVertical,
   User as UserIcon,
   Moon,
-  Sun,
-  Users,
-  Plus
+  Sun
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
