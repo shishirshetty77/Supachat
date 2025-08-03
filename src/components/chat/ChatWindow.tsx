@@ -9,11 +9,11 @@ import { useChat } from '@/contexts/ChatContext';
 import { useAuth } from '@/contexts/AuthContext';
 import { MessageBubble } from './MessageBubble';
 import { MessageInput } from './MessageInput';
+import { Message } from '@/types';
 import { formatDistanceToNow } from 'date-fns';
 import { 
   Phone, 
   Video, 
-  MoreVertical, 
   User as UserIcon,
   MessageCircle,
   Search,
@@ -21,7 +21,7 @@ import {
 } from 'lucide-react';
 
 export function ChatWindow() {
-  const { user } = useAuth();
+  const {} = useAuth();
   const { activeChat, messages, loading } = useChat();
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -44,7 +44,7 @@ export function ChatWindow() {
     return `Last seen ${formatDistanceToNow(date, { addSuffix: true })}`;
   };
 
-  const shouldShowAvatar = (currentMessage: any, previousMessage: any) => {
+  const shouldShowAvatar = (currentMessage: Message, previousMessage: Message | undefined) => {
     if (!previousMessage) return true;
     if (currentMessage.sender_id !== previousMessage.sender_id) return true;
     
@@ -53,7 +53,7 @@ export function ChatWindow() {
     return timeDiff > 5 * 60 * 1000; // Show avatar if messages are 5+ minutes apart
   };
 
-  const isConsecutiveMessage = (currentMessage: any, previousMessage: any) => {
+  const isConsecutiveMessage = (currentMessage: Message, previousMessage: Message | undefined) => {
     if (!previousMessage) return false;
     if (currentMessage.sender_id !== previousMessage.sender_id) return false;
     
