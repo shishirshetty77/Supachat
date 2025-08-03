@@ -1,7 +1,6 @@
 // Validation utilities for Chatty application
 
 import { CHAT_LIMITS } from '../constants/api';
-import { createError, ERROR_CODES } from './errorHandling';
 
 export interface ValidationResult {
   isValid: boolean;
