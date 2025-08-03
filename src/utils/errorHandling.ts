@@ -87,11 +87,11 @@ export function handleApiError(error: any): ChattyError {
 
 export function logError(error: AppError | ChattyError | Error): void {
   console.error('[Chatty Error]', {
-    name: error.name,
+    name: error instanceof Error ? error.name : 'AppError',
     message: error.message,
     code: 'code' in error ? error.code : 'UNKNOWN',
     details: 'details' in error ? error.details : undefined,
     timestamp: 'timestamp' in error ? error.timestamp : new Date(),
-    stack: error.stack,
+    stack: error instanceof Error ? error.stack : undefined,
   });
 }
