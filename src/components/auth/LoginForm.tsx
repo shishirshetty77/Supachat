@@ -29,7 +29,7 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
     try {
       setLoading(true);
       await signIn(email, password);
-    } catch (error) {
+    } catch {
       // Error is handled in the AuthContext
     } finally {
       setLoading(false);
@@ -40,7 +40,7 @@ export function LoginForm({ onToggleMode }: LoginFormProps) {
     try {
       setLoading(true);
       await signInWithOAuth(provider);
-    } catch (error) {
+    } catch {
       // Error is handled in the AuthContext
     } finally {
       setLoading(false);

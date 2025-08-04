@@ -46,7 +46,7 @@ export function SignUpForm({ onToggleMode }: SignUpFormProps) {
     try {
       setLoading(true);
       await signUp(email, password, username);
-    } catch (error) {
+    } catch {
       // Error is handled in the AuthContext
     } finally {
       setLoading(false);
@@ -57,7 +57,7 @@ export function SignUpForm({ onToggleMode }: SignUpFormProps) {
     try {
       setLoading(true);
       await signInWithOAuth(provider);
-    } catch (error) {
+    } catch {
       // Error is handled in the AuthContext
     } finally {
       setLoading(false);
